@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Pool {
+  // quero que o valor do id seja gerado automaticamente
+  id        String   @id @default(cuid())
+  title     String
+  //garante que seja um codigo unico
+  code      String   @unique
+  createdAt DateTime @default(now())
+}
+
+//migrations : mecanismo usado em app backend pra lidar com versionamento do banco de dados
